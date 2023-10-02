@@ -1,0 +1,8 @@
+{
+    "files.associations": {
+        "cstddef": "c",
+        "type_traits": "c",
+        "xutility": "c",
+        "xtr1common": "c"
+    }
+}
