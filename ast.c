@@ -118,6 +118,9 @@ ast_node_atom *new_atom_node(enum atom_types type, void *v)
 	node->type = type;
 	switch (type) {
 		case AT_IDENTIFIER:
+			node->value.string = (char *) malloc(strlen((char *) v)+1);
+			strcpy(node->value.string, (char *) v);
+			break;
 		case AT_STRING:
 			node->value.string = (char *) malloc(strlen((char *) v)+1);
 			strcpy(node->value.string, (char *) v);
@@ -136,6 +139,7 @@ void delete_atom_node(ast_node_atom *node)
 {
 	switch (node->type) {
 		case AT_IDENTIFIER:
+			free(node->value.string);
 		case AT_STRING:
 			free(node->value.string);
 			break;
@@ -251,8 +255,7 @@ ast_cond_node *new_cond_node(ast_node_atom *left, enum op_rel *op,  ast_node_ato
 
 	ast_cond_node *node = (ast_cond_node *) malloc(sizeof(ast_cond_node));
 	node->left = left;
-	node->op_rel = malloc(sizeof(enum op_rel));
-	*node->op_rel = *op;
+	node->op_rel = op;
 	node->right = right;
 	return node;
 }

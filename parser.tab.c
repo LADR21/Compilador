@@ -1461,7 +1461,7 @@ yyreduce:
 
   case 14: /* COND: atom OP_REL atom  */
 #line 103 "parser.y"
-                          {(yyval.cond) = new_cond_node((yyvsp[-2].atom), &(yyvsp[-1].OP_REL), (yyvsp[0].atom));}
+                          {(yyval.cond) = new_cond_node((yyvsp[-2].atom), (yyvsp[-1].OP_REL), (yyvsp[0].atom));}
 #line 1466 "parser.tab.c"
     break;
 
@@ -1491,13 +1491,13 @@ yyreduce:
 
   case 19: /* atom: "id"  */
 #line 114 "parser.y"
-                      { (yyval.atom) = new_atom_node(AT_IDENTIFIER, (void *)((yyvsp[0].sval))); }
+                      { (yyval.atom) = new_atom_node(AT_IDENTIFIER, (void *)(&(yyvsp[0].sval))); }
 #line 1496 "parser.tab.c"
     break;
 
   case 20: /* atom: "string"  */
 #line 115 "parser.y"
-                      { (yyval.atom) = new_atom_node(AT_STRING, (void *)((yyvsp[0].sval))); }
+                      { (yyval.atom) = new_atom_node(AT_STRING, (void *)(&(yyvsp[0].sval))); }
 #line 1502 "parser.tab.c"
     break;
 

@@ -100,7 +100,7 @@ BODYIF  : COND LBRACK  {$$ = new_if_node($1);}
         ;
 
 
-COND  : atom OP_REL atom  {$$ = new_cond_node($1, &$2, $3);}
+COND  : atom OP_REL atom  {$$ = new_cond_node($1, $2, $3);}
       ;
 
 list  : %empty       { $$ = new_list_node(); }
@@ -111,8 +111,8 @@ DECL  : TYPE IDENTIFIER {$$ = new_decl_node($1, $2);}
       ;
 
 atom  : "int"         { $$ = new_atom_node(AT_NUMBER, (void *)(&$1)); }
-      | "id"          { $$ = new_atom_node(AT_IDENTIFIER, (void *)($1)); }
-      | "string"      { $$ = new_atom_node(AT_STRING, (void *)($1)); }
+      | "id"          { $$ = new_atom_node(AT_IDENTIFIER, (void *)(&$1)); }
+      | "string"      { $$ = new_atom_node(AT_STRING, (void *)(&$1)); }
       | "float"      { $$ = new_atom_node(AT_FLOAT, (void *)(&$1)); }
       ;
 
