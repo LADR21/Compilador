@@ -18,20 +18,19 @@ string \"[^\"\n]*\"
 \{ {return (LBRACK);}
 \,   {return (COMMA);}
 \;  {return (SEMICOLON);}
+\+   { yylval->OP_ARIT = yytext;return (OP_ARIT);}
+\-   {yylval->OP_ARIT = yytext; return (OP_ARIT);}
+\*   {yylval->OP_ARIT = yytext; return (OP_ARIT);}
+\/   {yylval->OP_ARIT = yytext; return (OP_ARIT);}
+\^   {yylval->OP_ARIT = yytext; return (OP_ARIT);}
+\%	 {yylval->OP_ARIT = yytext; return (OP_ARIT);}
 
-"+"   { yylval->oparit = yytext;return (OP_ARIT);}
-"-"   {yylval->oparit = yytext; return (OP_ARIT);}
-"*"   {yylval->oparit = yytext; return (OP_ARIT);}
-"/"   {yylval->oparit = yytext; return (OP_ARIT);}
-"^"   {yylval->oparit = yytext; return (OP_ARIT);}
-"%"	 {yylval->oparit = yytext; return (OP_ARIT);}
-
-"==" {yylval->OP_REL = yytext; return (OP_REL);}
-"!=" {yylval->OP_REL = yytext; return (OP_REL);}
-"\<" {yylval->OP_REL = yytext; return (OP_REL);}
-"\>" {yylval->OP_REL = yytext; return (OP_REL);}
-"\<\=" {yylval->OP_REL = yytext; return (OP_REL);}
-"\>\=" {yylval->OP_REL = yytext; return (OP_REL);}
+\== {yylval->OP_REL = yytext; return (OP_REL);}
+\!= {yylval->OP_REL = yytext; return (OP_REL);}
+\< {yylval->OP_REL = yytext; return (OP_REL);}
+\> {yylval->OP_REL = yytext; return (OP_REL);}
+\<\= {yylval->OP_REL = yytext; return (OP_REL);}
+\>\= {yylval->OP_REL = yytext; return (OP_REL);}
 
 \=	 {return (ASSIGN);}
 
@@ -44,8 +43,8 @@ string  {yylval->TYPE = yytext; return (TYPE);}
 int     {yylval->TYPE = yytext;return (TYPE);}
 float	 {yylval->TYPE = yytext;return (TYPE);}
 
-"("        return LPAR;
-")"        return RPAR;
+\(        return LPAR;
+\)        return RPAR;
 
 {int}      { yylval->ival = atol(yytext); return INTEGER_LITERAL; }
 
@@ -53,7 +52,6 @@ float	 {yylval->TYPE = yytext;return (TYPE);}
 {string}   { yylval->sval = yytext; return STRING_LITERAL; }
 {float}     {yylval-> fval = atof(yytext); return FLOAT_LITERAL;}
 
-\s {}
 \n {}
 [ \t]+ {/*ignore*/}
 <<EOF>>    return TOK_EOF;

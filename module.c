@@ -2,32 +2,28 @@
 #include "parser.tab.h"
 #include "scanner.h"
 
-module *
-new_module_from_stdin()
+module *new_module_from_stdin()
 {
-	module *mod = (module *) malloc(sizeof(module));
+	module *mod = (module *) malloc(32*sizeof(module));
 	mod->src = stdin;
 	return mod;
 }
 
-module *
-new_module_from_file(const char *filename)
+module *new_module_from_file(const char *filename)
 {
-	module *mod = (module *) malloc(sizeof(module));
+	module *mod = (module *) malloc(32*sizeof(module));
 	mod->src = fopen(filename, "r");
 	return mod;
 }
 
-module *
-new_module_from_string(char *src)
+module *new_module_from_string(char *src)
 {
-	module *mod = (module *) malloc(sizeof(module));
+	module *mod = (module *) malloc(32*sizeof(module));
 	mod->src = fmemopen(src, strlen(src)+1, "r");
 	return mod;
 }
 
-void
-delete_module(module *mod)
+void delete_module(module *mod)
 {
 	if (mod->root != NULL) {
 		delete_sexp_node(mod->root);
@@ -36,8 +32,7 @@ delete_module(module *mod)
 	free(mod);
 }
 
-int
-parse_module(module *mod)
+int parse_module(module *mod)
 {
 	yyscan_t sc;
 	int res;

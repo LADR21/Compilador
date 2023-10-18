@@ -5,7 +5,7 @@ enum op_rel{ EQEQ, NEQ, GT, LT, GTEQ, LTEQ };
 enum atom_types { AT_NUMBER, AT_STRING, AT_IDENTIFIER, AT_FLOAT };
 enum type {STRING, INT, FLOAT};
 enum sexp_types { ST_ATOM, ST_LIST, ST_WHILE, ST_IF, ST_DECL, ST_ASSIGN };
- enum op_arit {PLUS, MINUS, MULT, DIV, EXP, MOD};
+enum op_arit {PLUS, MINUS, MULT, DIV, EXP, MOD};
 typedef struct {
 	enum atom_types type;
 	union {
