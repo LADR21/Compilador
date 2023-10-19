@@ -1,0 +1,10 @@
+ast.o
+main.o
+module.o
+parser.tab.*
+parser.txt
+run
+scanner.c
+scanner.h
+scanner.o
+scanner.txt

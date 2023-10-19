@@ -551,9 +551,9 @@ static const yytype_int8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_int8 yyrline[] =
 {
-       0,    82,    82,    85,    86,    87,    88,    89,    90,    93,
-      96,    97,   100,   101,   105,   108,   109,   112,   115,   116,
-     117,   118
+       0,    81,    81,    83,    84,    85,    86,    87,    88,    91,
+      94,    95,    98,    99,   103,   106,   107,   110,   113,   114,
+     115,   116
 };
 #endif
 
@@ -562,8 +562,8 @@ static const yytype_int8 yyrline[] =
    First, the terminals, then, starting at YYNTOKENS, nonterminals.  */
 static const char *const yytname[] =
 {
-  "\"end of file\"", "error", "$undefined", "\"=\"", "\"integer\"",
-  "\"float\"", "\"string\"", "\"identifier\"", "OP_ARIT", "TYPE",
+  "\"end of file\"", "error", "$undefined", "\"=\"", "\"int\"",
+  "\"float\"", "\"string\"", "\"id\"", "OP_ARIT", "TYPE",
   "\"begin of file\"", "OP_REL", "\",\"", "\";\"", "\"(\"", "\")\"",
   "\"{\"", "\"}\"", "\"while\"", "\"if\"", "\"write\"", "\"read\"",
   "$accept", "sexps", "sexp", "ASSIGNSTRUCT", "BODYWHILE", "BODYIF",
@@ -1373,122 +1373,122 @@ yyreduce:
   switch (yyn)
     {
   case 2:
-#line 82 "parser.y"
-        {mod->root = (yyvsp[0].sexp);}
+#line 81 "parser.y"
+              {mod->root = (yyvsp[0].sexp);}
 #line 1379 "parser.tab.c"
     break;
 
   case 3:
-#line 85 "parser.y"
-                    { (yyval.sexp) = new_sexp_node(ST_ATOM, (yyvsp[-1].atom)); }
+#line 83 "parser.y"
+                          { (yyval.sexp) = new_sexp_node(ST_ATOM, (yyvsp[-1].atom)); }
 #line 1385 "parser.tab.c"
     break;
 
   case 4:
-#line 86 "parser.y"
-                 {(yyval.sexp) = new_sexp_node(ST_DECL, (yyvsp[-1].node_decl));}
+#line 84 "parser.y"
+                       {(yyval.sexp) = new_sexp_node(ST_DECL, (yyvsp[-1].node_decl));}
 #line 1391 "parser.tab.c"
     break;
 
   case 5:
-#line 87 "parser.y"
-                 { (yyval.sexp) = new_sexp_node(ST_LIST, (yyvsp[-1].list)); }
+#line 85 "parser.y"
+                       { (yyval.sexp) = new_sexp_node(ST_LIST, (yyvsp[-1].list)); }
 #line 1397 "parser.tab.c"
     break;
 
   case 6:
-#line 88 "parser.y"
-                         { (yyval.sexp) = new_sexp_node(ST_WHILE, (yyvsp[-1].node_while));}
+#line 86 "parser.y"
+                               { (yyval.sexp) = new_sexp_node(ST_WHILE, (yyvsp[-1].node_while));}
 #line 1403 "parser.tab.c"
     break;
 
   case 7:
-#line 89 "parser.y"
-                   {(yyval.sexp) = new_sexp_node(ST_IF, (yyvsp[-1].node_if));}
+#line 87 "parser.y"
+                         {(yyval.sexp) = new_sexp_node(ST_IF, (yyvsp[-1].node_if));}
 #line 1409 "parser.tab.c"
     break;
 
   case 8:
-#line 90 "parser.y"
-                         {(yyval.sexp) = new_sexp_node(ST_ASSIGN, (yyvsp[-1].node_assign));}
+#line 88 "parser.y"
+                               {(yyval.sexp) = new_sexp_node(ST_ASSIGN, (yyvsp[-1].node_assign));}
 #line 1415 "parser.tab.c"
     break;
 
   case 9:
-#line 93 "parser.y"
-                         {(yyval.node_assign) = new_assign_node((yyvsp[-2].sval), (yyvsp[0].atom));}
+#line 91 "parser.y"
+                                       {(yyval.node_assign) = new_assign_node((yyvsp[-2].sval), (yyvsp[0].atom));}
 #line 1421 "parser.tab.c"
     break;
 
   case 10:
-#line 96 "parser.y"
-               {(yyval.node_while) = new_while_node((yyvsp[-1].cond));}
+#line 94 "parser.y"
+                         {(yyval.node_while) = new_while_node((yyvsp[-1].cond));}
 #line 1427 "parser.tab.c"
     break;
 
   case 11:
-#line 97 "parser.y"
-                              {(yyval.node_while) = (yyvsp[-1].node_while); add_node_to_while((yyval.node_while), (yyvsp[0].sexp));}
+#line 95 "parser.y"
+                                       {(yyval.node_while) = (yyvsp[-1].node_while); add_node_to_while((yyval.node_while), (yyvsp[0].sexp));}
 #line 1433 "parser.tab.c"
     break;
 
   case 12:
-#line 100 "parser.y"
-               {(yyval.node_if) = new_if_node((yyvsp[-1].cond));}
+#line 98 "parser.y"
+                       {(yyval.node_if) = new_if_node((yyvsp[-1].cond));}
 #line 1439 "parser.tab.c"
     break;
 
   case 13:
-#line 101 "parser.y"
-                           {(yyval.node_if) = (yyvsp[-1].node_if); add_node_to_if((yyval.node_if), (yyvsp[0].sexp));}
+#line 99 "parser.y"
+                                  {(yyval.node_if) = (yyvsp[-1].node_if); add_node_to_if((yyval.node_if), (yyvsp[0].sexp));}
 #line 1445 "parser.tab.c"
     break;
 
   case 14:
-#line 105 "parser.y"
-                    {(yyval.cond) = new_cond_node((yyvsp[-2].atom), (yyvsp[-1].OP_REL), (yyvsp[0].atom));}
+#line 103 "parser.y"
+                          {(yyval.cond) = new_cond_node((yyvsp[-2].atom), (yyvsp[-1].OP_REL), (yyvsp[0].atom));}
 #line 1451 "parser.tab.c"
     break;
 
   case 15:
-#line 108 "parser.y"
-                { (yyval.list) = new_list_node(); }
+#line 106 "parser.y"
+                     { (yyval.list) = new_list_node(); }
 #line 1457 "parser.tab.c"
     break;
 
   case 16:
-#line 109 "parser.y"
-               { (yyval.list) = (yyvsp[-1].list); add_node_to_list((yyval.list), (yyvsp[0].sexp)); }
+#line 107 "parser.y"
+                     { (yyval.list) = (yyvsp[-1].list); add_node_to_list((yyval.list), (yyvsp[0].sexp)); }
 #line 1463 "parser.tab.c"
     break;
 
   case 17:
-#line 112 "parser.y"
-                  {(yyval.node_decl) = new_decl_node((yyvsp[-1].TYPE), (yyvsp[0].sval));}
+#line 110 "parser.y"
+                        {(yyval.node_decl) = new_decl_node((yyvsp[-1].TYPE), (yyvsp[0].sval));}
 #line 1469 "parser.tab.c"
     break;
 
   case 18:
-#line 115 "parser.y"
-                 { (yyval.atom) = new_atom_node(AT_NUMBER, (void *)(&(yyvsp[0].ival))); }
+#line 113 "parser.y"
+                      { (yyval.atom) = new_atom_node(AT_NUMBER, (void *)(&(yyvsp[0].ival))); }
 #line 1475 "parser.tab.c"
     break;
 
   case 19:
-#line 116 "parser.y"
-                { (yyval.atom) = new_atom_node(AT_IDENTIFIER, (void *)((yyvsp[0].sval))); }
+#line 114 "parser.y"
+                      { (yyval.atom) = new_atom_node(AT_IDENTIFIER, (void *)(&(yyvsp[0].sval))); }
 #line 1481 "parser.tab.c"
     break;
 
   case 20:
-#line 117 "parser.y"
-                { (yyval.atom) = new_atom_node(AT_STRING, (void *)((yyvsp[0].sval))); }
+#line 115 "parser.y"
+                      { (yyval.atom) = new_atom_node(AT_STRING, (void *)(&(yyvsp[0].sval))); }
 #line 1487 "parser.tab.c"
     break;
 
   case 21:
-#line 118 "parser.y"
-                { (yyval.atom) = new_atom_node(AT_FLOAT, (void *)(&(yyvsp[0].fval))); }
+#line 116 "parser.y"
+                     { (yyval.atom) = new_atom_node(AT_FLOAT, (void *)(&(yyvsp[0].fval))); }
 #line 1493 "parser.tab.c"
     break;
 
@@ -1725,7 +1725,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 120 "parser.y"
+#line 119 "parser.y"
 
 
 void yyerror (yyscan_t *locp, module *mod, char const *msg) {

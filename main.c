@@ -6,11 +6,6 @@ main(int argc, char **argv)
 	module *mod;
 	int i, res;
 
-	mod = new_module_from_string("(while z >=y{})");
-	res = parse_module(mod);
-	delete_module(mod);
-	return res;
-
 	if (argc == 1) {
 		mod = new_module_from_stdin();
 		return parse_module(mod);

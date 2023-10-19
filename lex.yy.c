@@ -1,6 +1,5 @@
-#line 2 "scanner.c"
 
-#line 4 "scanner.c"
+#line 3 "lex.yy.c"
 
 #define  YY_INT_ALIGNED short int
 
@@ -476,8 +475,8 @@ static const flex_int16_t yy_chk[119] =
 #line 2 "scanner.l"
 #include "parser.tab.h"
 
-#line 480 "scanner.c"
-#line 481 "scanner.c"
+#line 479 "lex.yy.c"
+#line 480 "lex.yy.c"
 
 #define INITIAL 0
 
@@ -756,7 +755,7 @@ YY_DECL
 
 
 
-#line 760 "scanner.c"
+#line 759 "lex.yy.c"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -836,32 +835,32 @@ YY_RULE_SETUP
 case 5:
 YY_RULE_SETUP
 #line 21 "scanner.l"
-{ yylval->OP_ARIT = yytext;return (OP_ARIT);}
+{ yylval->oparit = yytext;return (OP_ARIT);}
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
 #line 22 "scanner.l"
-{yylval->OP_ARIT = yytext; return (OP_ARIT);}
+{yylval->oparit = yytext; return (OP_ARIT);}
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
 #line 23 "scanner.l"
-{yylval->OP_ARIT = yytext; return (OP_ARIT);}
+{yylval->oparit = yytext; return (OP_ARIT);}
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
 #line 24 "scanner.l"
-{yylval->OP_ARIT = yytext; return (OP_ARIT);}
+{yylval->oparit = yytext; return (OP_ARIT);}
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
 #line 25 "scanner.l"
-{yylval->OP_ARIT = yytext; return (OP_ARIT);}
+{yylval->oparit = yytext; return (OP_ARIT);}
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
 #line 26 "scanner.l"
-{yylval->OP_ARIT = yytext; return (OP_ARIT);}
+{yylval->oparit = yytext; return (OP_ARIT);}
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
@@ -983,7 +982,7 @@ YY_RULE_SETUP
 #line 58 "scanner.l"
 ECHO;
 	YY_BREAK
-#line 987 "scanner.c"
+#line 986 "lex.yy.c"
 
 	case YY_END_OF_BUFFER:
 		{
