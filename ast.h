@@ -36,8 +36,8 @@ void add_node_to_list(ast_node_list *list, ast_node_sexp *node);
 // CONDICIONALES
 
 typedef struct{
-	ast_node_sexp *left;
-	ast_node_sexp *right;
+	ast_node_atom *left;
+	ast_node_atom *right;
 	enum op_rel *op_rel;
 } ast_cond_node;
 
@@ -58,7 +58,7 @@ typedef struct {
 ast_node_while *new_while_node(ast_cond_node *cond);
 void delete_while_node(ast_node_while *node);
 void print_node_while(ast_node_while *node);
-void add_node_to_while(ast_node_while *wlist, ast_node_sexp *node);
+void add_list_to_while(ast_node_while *wlist, ast_node_list *list);
 
 // FIN WHILE
 // IF
@@ -72,7 +72,7 @@ typedef struct {
 	ast_node_if *new_if_node(ast_cond_node *cond);
 	void delete_if_node(ast_node_if *node);
 	void print_node_if(ast_node_if *node);
-	void add_node_to_if(ast_node_if *iflist, ast_node_sexp *node);
+	void add_list_to_if(ast_node_if *iflist, ast_node_sexp *node);
 // FIN IF
 
 

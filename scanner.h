@@ -500,7 +500,7 @@ extern int yylex \
 #undef yyTABLES_NAME
 #endif
 
-#line 58 "scanner.l"
+#line 59 "scanner.l"
 
 #line 506 "scanner.h"
 #undef yyIN_HEADER

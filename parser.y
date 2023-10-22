@@ -30,13 +30,13 @@ void yyerror (yyscan_t *locp, module *mod, char const *msg);
   char * sval;
   enum op_arit OP_ARIT;
   enum type TYPE;
+  enum op_rel OP_REL;
   ast_node_atom* atom;
   ast_node_list* list;
   ast_cond_node* cond;
   ast_node_if* node_if;
   ast_node_decl* node_decl;
   ast_node_assign* node_assign;
-  enum op_rel OP_REL;
   ast_node_while* node_while;
   ast_node_sexp* sexp;
 }
@@ -65,11 +65,11 @@ void yyerror (yyscan_t *locp, module *mod, char const *msg);
 %token WRITE "write"
 %token READ "read"
 
-%type <sexp> sexp
-%type <atom> atom
-%type <list> list
+%type <sexp> sexp 
+%type <atom> atom CONDELEMENT
+%type <list> list BODYWHILE
 
-%type <node_while> BODYWHILE
+%type <node_while> WHILESTMT
 %type <node_if> BODYIF
 %type <cond> COND
 %type <node_decl> DECL
@@ -83,16 +83,22 @@ sexps : sexp  {mod->root = $1;}
 sexp  : atom SEMICOLON    { $$ = new_sexp_node(ST_ATOM, $1); }
       | DECL SEMICOLON {$$ = new_sexp_node(ST_DECL, $1);}
       | LPAR list RPAR { $$ = new_sexp_node(ST_LIST, $2); }
-      | WHILE BODYWHILE RBRACK { $$ = new_sexp_node(ST_WHILE, $2);}
+      | WHILESTMT { $$ = new_sexp_node(ST_WHILE, $1);}
       | IF BODYIF RBRACK {$$ = new_sexp_node(ST_IF, $2);}
       | ASSIGNSTRUCT SEMICOLON {$$ = new_sexp_node(ST_ASSIGN, $1);}
       ;
 
+CONDELEMENT: atom {$$ = new_sexp_node(ST_ATOM, $1); }
+            ;
+
 ASSIGNSTRUCT  : IDENTIFIER ASSIGN atom {$$ = new_assign_node($1, $3);}
               ;
 
-BODYWHILE : COND LBRACK  {$$ = new_while_node($1);}
-          | COND LBRACK BODYWHILE sexp {$$ = $3; add_node_to_while($$, $4);}
+WHILESTMT : WHILE COND LBRACK BODYWHILE RBRACK{$$ = new_while_node($2); add_list_to_while($$, $4);}
+          ;
+
+BODYWHILE : %empty {$$ = new_list_node();}
+          | BODYWHILE sexp {$$ = $1; add_node_to_list($$, $2);}
           ;
 
 BODYIF  : COND LBRACK  {$$ = new_if_node($1);}
@@ -100,7 +106,7 @@ BODYIF  : COND LBRACK  {$$ = new_if_node($1);}
         ;
 
 
-COND  : atom OP_REL atom  {$$ = new_cond_node($1, $2, $3);}
+COND  : CONDELEMENT OP_REL CONDELEMENT {$$ = new_cond_node($1, $2, $3);}
       ;
 
 list  : %empty       { $$ = new_list_node(); }

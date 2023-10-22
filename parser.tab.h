@@ -90,13 +90,13 @@ union YYSTYPE
   char * sval;
   enum op_arit OP_ARIT;
   enum type TYPE;
+  enum op_rel OP_REL;
   ast_node_atom* atom;
   ast_node_list* list;
   ast_cond_node* cond;
   ast_node_if* node_if;
   ast_node_decl* node_decl;
   ast_node_assign* node_assign;
-  enum op_rel OP_REL;
   ast_node_while* node_while;
   ast_node_sexp* sexp;
 
