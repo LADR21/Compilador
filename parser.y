@@ -67,10 +67,10 @@ void yyerror (yyscan_t *locp, module *mod, char const *msg);
 
 %type <sexp> sexp 
 %type <atom> atom CONDELEMENT
-%type <list> list BODYWHILE
+%type <list> list BODYWHILE BODYIF
 
 %type <node_while> WHILESTMT
-%type <node_if> BODYIF
+%type <node_if> IFSTMT
 %type <cond> COND
 %type <node_decl> DECL
 %type <node_assign> ASSIGNSTRUCT
@@ -84,7 +84,7 @@ sexp  : atom SEMICOLON    { $$ = new_sexp_node(ST_ATOM, $1); }
       | DECL SEMICOLON {$$ = new_sexp_node(ST_DECL, $1);}
       | LPAR list RPAR { $$ = new_sexp_node(ST_LIST, $2); }
       | WHILESTMT { $$ = new_sexp_node(ST_WHILE, $1);}
-      | IF BODYIF RBRACK {$$ = new_sexp_node(ST_IF, $2);}
+      | IFSTMT {$$ = new_sexp_node(ST_IF, $1);}
       | ASSIGNSTRUCT SEMICOLON {$$ = new_sexp_node(ST_ASSIGN, $1);}
       ;
 
@@ -101,8 +101,11 @@ BODYWHILE : %empty {$$ = new_list_node();}
           | BODYWHILE sexp {$$ = $1; add_node_to_list($$, $2);}
           ;
 
-BODYIF  : COND LBRACK  {$$ = new_if_node($1);}
-        | COND LBRACK BODYIF sexp {$$ = $3; add_node_to_if($$, $4);}
+IFSTMT : IF COND LBRACK BODYIF RBRACK {$$ = new_if_node($2); add_list_to_if($$, $4);}
+       ;
+
+BODYIF  : %empty  {$$ = new_list_node();}
+        | BODYIF sexp {$$ = $1; add_node_to_list($$, $2);}
         ;
 
 

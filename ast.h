@@ -72,7 +72,7 @@ typedef struct {
 	ast_node_if *new_if_node(ast_cond_node *cond);
 	void delete_if_node(ast_node_if *node);
 	void print_node_if(ast_node_if *node);
-	void add_list_to_if(ast_node_if *iflist, ast_node_sexp *node);
+	void add_list_to_if(ast_node_if *iflist, ast_node_list *list);
 // FIN IF
 
 
@@ -83,7 +83,7 @@ typedef struct {
 	ast_node_atom *value;
 } ast_node_decl;
 
-	ast_node_decl *new_decl_node(enum type type, const char *name);
+	ast_node_decl *new_decl_node(enum type *type, char *name);
 	void delete_decl_node(ast_node_decl *node);
 	void print_node_decl(ast_node_decl *node);
 	// void add_node_to_decl(ast_node_sexp *decllist, ast_node_sexp *node);

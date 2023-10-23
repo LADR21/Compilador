@@ -67,7 +67,14 @@ void delete_while_node(ast_node_while *node)
 
 void add_list_to_while(ast_node_while *wlist, ast_node_list *list)
 {
+	// Sets the length
+	wlist->length = list->length;
 	// All the elements in the list are added to the while list
+	int i;
+	for (i = 0; i < wlist->length; i++)
+	{
+		wlist->wlist[i] = list->list[i];
+	}
 }
 
 void print_node_while(ast_node_while *node)
@@ -96,7 +103,12 @@ ast_node_if *new_if_node(ast_cond_node *cond)
 }
 void delete_if_node(ast_node_if *node)
 {
-	delete_atom_node(node->iflist);
+	int i;
+	for (i = 0; i < node->length; i++)
+	{
+		delete_sexp_node(node->iflist[i]);
+	}
+	free(node->iflist);
 	free(node);
 }
 void print_node_if(ast_node_if *node)
@@ -108,17 +120,17 @@ void print_node_if(ast_node_if *node)
 		print_node_sexp(node->iflist[i]);
 	}
 }
-void add_node_to_if(ast_node_if *iflist, ast_node_sexp *node)
+void add_list_to_if(ast_node_if *iflist, ast_node_list *list)
 {
-	if (iflist->length == iflist->capacity)
+	iflist->length = list->length;
+	int i;
+	for (i = 0; i < list->length; i++)
 	{
-		// TODO should allocate some more space
+		iflist->iflist[i] = list->list[i];
 	}
-	iflist->iflist[iflist->length] = node;
-	iflist->length++;
 }
 // FIN IF
-
+// ATOM
 ast_node_atom *new_atom_node(enum atom_types type, void *v)
 {
 	ast_node_atom *node = (ast_node_atom *)malloc(sizeof(ast_node_atom));
@@ -128,7 +140,7 @@ ast_node_atom *new_atom_node(enum atom_types type, void *v)
 	case AT_IDENTIFIER:
 	case AT_STRING:
 		node->value.string = (char *)malloc(strlen((char *)v) + 1);
-		strcpy(node->value.string, (char *)v);
+		strcpy_s(node->value.string, (char *)v);
 		break;
 	case AT_NUMBER:
 		node->value.number = *((long *)v);
@@ -145,7 +157,6 @@ void delete_atom_node(ast_node_atom *node)
 	switch (node->type)
 	{
 	case AT_IDENTIFIER:
-		free(node->value.string);
 	case AT_STRING:
 		free(node->value.string);
 		break;
@@ -184,6 +195,7 @@ void print_node_atom(ast_node_atom *node)
 	}
 }
 // FIN ATOM
+// SEXP
 ast_node_sexp *new_sexp_node(enum sexp_types type, void *v)
 {
 	ast_node_sexp *node = (ast_node_sexp *)malloc(sizeof(ast_node_sexp));
@@ -308,23 +320,24 @@ void delete_cond_node(ast_cond_node *node)
 // FIN CONDICIONALES
 // DECL
 
-ast_node_decl *new_decl_node(enum type type, const char *name)
+ast_node_decl *new_decl_node(enum type *type, char *name)
 {
 	ast_node_decl *node = (ast_node_decl *)malloc(sizeof(ast_node_decl));
-	node->type = type;
-	node->name = name;
+	node->type = malloc(sizeof(enum type));
+	*node->type = *type;
+	node->name = strdup(name);
 	return node;
 }
 void delete_decl_node(ast_node_decl *node)
 {
-	delete_atom_node(node->type);
+	free(node->type);
 	delete_atom_node(node->name);
 	delete_atom_node(node->value);
 	free(node);
 }
 void print_node_decl(ast_node_decl *node)
 {
-	printf("declaration node with type %d and name %s\n", node->type, node->name);
+	printf("type: %d, name: %s\n", node->type, node->name);
 }
 // FIN DECL
 
@@ -341,6 +354,7 @@ ast_node_assign *new_assign_node(const char *name, ast_node_atom *value)
 void delete_assign_node(ast_node_assign *node)
 {
 	delete_atom_node(node->value);
+	free(node->name);
 	free(node);
 }
 void print_node_assign(ast_node_assign *node)
